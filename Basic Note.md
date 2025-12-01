@@ -150,6 +150,33 @@ print(f'面积: {t.area}')
 | 访问类属性 | 通过 self.__class__ 或类名 | √ 通过 cls | 通过类名 |
 | 修改类状态 | 可以，但不直接 | √ 可以 | X 不能 |
 | 多态性 | √ 支持 | √ 支持（通过 cls） | X 不支持 |
+>example
+>```python
+>class Example:
+    class_var = "类变量"
+    
+    def __init__(self):
+        self.instance_var = "实例变量"
+    
+    @staticmethod
+    def static_method():
+        # 不能直接访问实例属性
+        # print(self.instance_var)  # ❌ 错误：没有self
+        
+        # 可以访问类属性，但需要通过类名
+        print(Example.class_var)   # ✓ 可以
+        return "静态方法"
+    
+    # 带参数的静态方法
+    @staticmethod
+    def calculate(operation, a, b):
+        if operation == "add":
+            return a + b
+        elif operation == "subtract":
+            return a - b
+        else:
+            return None
+>```
 ### 继承和多态
 ```python
 class Person:
@@ -158,7 +185,7 @@ class Person:
     def __init__(self, name, age):
         self.name = name
         self.age = age
-    
+    3
     def eat(self):
         print(f'{self.name}正在吃饭.')
     
