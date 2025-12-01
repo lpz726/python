@@ -10,6 +10,13 @@ python learning
 |查找速度	|O(n)	|O(n)|	O(1)平均|	O(1)属性访问|
 |使用场景	|同构数据集合|	异构数据记录	|键值映射	|复杂数据结构|
 |哈希性	|不可哈希	|可哈希（元素也需可哈希）|	不可哈希|自定义|
+|添加|list.append(add),list.insert(num,add)|
+|删除|list.pop(num or del),list.remove(del)，del list[num]|
+|排序|list.sort()|
+|反转|list.reverse()|
+>add:代表所添加元素
+>num：代表元素在结构中的位置
+>del：代表删除的元素
 ## 字典推导式语法总结
 ##### {key_expression: value_expression for item in iterable if condition}
 ### example:
