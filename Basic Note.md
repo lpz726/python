@@ -216,6 +216,38 @@ tea1.teach('Python程序设计')
 stu2.study('数据科学导论')
 ```
 >super().__init__()来调用父类初始化方法，super函数是 Python 内置函数中专门为获取当前对象的父类对象而设计的。从上面的代码可以看出，子类除了可以通过继承得到父类提供的属性和方法外，还可以定义自己特有的属性和方法，所以子类比父类拥有的更多的能力。在实际开发中，我们经常会用子类对象去替换掉一个父类对象，这是面向对象编程中一个常见的行为，也叫做“里氏替换原则”（Liskov Substitution Principle）。
+## 生成式
+```python
+prices = {
+    'AAPL': 191.88,
+    'GOOG': 1186.96,
+    'IBM': 149.24,
+    'ORCL': 48.44,
+    'ACN': 166.89,
+    'FB': 208.09,
+    'SYMC': 21.29
+}
+# 用股票价格大于100元的股票构造一个新的字典
+prices2 = {key: value for key, value in prices.items() if value > 100}
+print(prices2)
+```
+## 嵌套列表
+语法
+```python
+# 正确方式 - 创建独立的列表
+scores = [[None] * len(courses) for _ in range(len(names))]
+#分解理解
+# 1. [None] * len(courses) = [None] * 3 = [None, None, None]
+# 2. for _ in range(len(names)) = for _ in range(5)
+# 3. 每次循环都创建一个新的 [None, None, None]
+# 4. 结果是5个独立的列表
+
+# 相当于：
+scores = []
+for i in range(5):
+    row = [None, None, None]  # 每次都新建一个列表
+    scores.append(row)
+```
 ## 字典推导式语法总结
 ##### {key_expression: value_expression for item in iterable if condition}
 ### example:
