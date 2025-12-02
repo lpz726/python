@@ -764,9 +764,11 @@ print("original == copy1:", original == copy1)  # True（值相等）
 print("original is copy1:", original is copy1)  # False（不是同一个对象）
 ```
 切片操作特性：
->创建新的列表对象
->但只拷贝一层（浅拷贝）
+>创建新的列表对象   
+>但只拷贝一层（浅拷贝）   
 >对嵌套结构，内部对象仍然是引用
+
+
 浅拷贝 vs 深拷贝
 ```python
 import copy
