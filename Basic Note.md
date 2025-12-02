@@ -18,6 +18,7 @@ python learning
 >add:代表所添加元素  
 >num：代表元素在结构中的位置  
 >del：代表删除的元素
+
 ## 函数   
 ### 高级函数
 map 函数
@@ -213,7 +214,8 @@ def risky_operation():
 result = risky_operation()
 print(result)
 ```
-### 装饰器  
+## 装饰器  
+概念：装饰器是一种设计模式，允许在不修改原函数代码的情况下，动态地扩展函数的功能。
 ```python
 def record_time(func):
     
@@ -242,6 +244,108 @@ def download(filename):
     time.sleep(random.random() * 6)  # 模拟下载耗时
     print(f'{filename}下载完成.')
 ```
+```python
+# 简单比喻：给函数"穿衣服"
+def wear_jacket(func):  # 这件"衣服"就是装饰器
+    def dressed_function():
+        print("穿上夹克")  # 新增功能
+        func()            # 原函数
+        print("脱下夹克")  # 新增功能
+    return dressed_function
+@wear_jacket
+def go_out():
+    print("出门逛街")
+go_out()
+# 输出：
+# 穿上夹克
+# 出门逛街  
+# 脱下夹克
+```
+ 装饰器的本质
+ ```python
+ # 语法糖 @decorator 的实际含义
+def decorator(func):
+    def wrapper():
+        print("装饰器逻辑")
+        return func()
+    return wrapper
+
+# 方式1：使用@语法糖（推荐）
+@decorator
+def function():
+    print("原函数")
+
+# 方式2：手动装饰（实际执行过程）
+def function():
+    print("原函数")
+function = decorator(function)  # 将function替换为wrapper
+
+# 两种方式完全等价！
+```
+### 装饰器的实现原理
+>基本结构
+```python
+# 三层嵌套结构
+def decorator(func):           # 第一层：接收被装饰函数
+    def wrapper(*args, **kwargs):  # 第二层：接收函数参数
+        # 前置处理
+        result = func(*args, **kwargs)  # 执行原函数
+        # 后置处理
+        return result
+    return wrapper             # 返回包装函数
+
+# 使用
+@decorator
+def target_function():
+    pass
+```
+### 无参数装饰器（基础版）
+```python
+def timer(func):
+    """计时装饰器"""
+    import time    
+    def wrapper(*args, **kwargs):
+        start_time = time.time()
+        result = func(*args, **kwargs)
+        end_time = time.time()
+        print(f"{func.__name__} 执行时间: {end_time - start_time:.4f}秒")
+        return result    
+    return wrapper
+@timer
+def slow_function():
+    import time
+    time.sleep(0.5)
+    return "完成"
+print(slow_function())
+```
+### 带参数装饰器（三层嵌套）
+```python
+def repeat(times):
+    """重复执行装饰器"""
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            results = []
+            for i in range(times):
+                print(f"第 {i+1} 次执行")
+                result = func(*args, **kwargs)
+                results.append(result)
+            return results
+        return wrapper
+    return decorator
+
+# 使用带参数装饰器
+@repeat(times=3)
+def greet(name):
+    return f"Hello, {name}!"
+
+print(greet("Alice"))
+# 输出：
+# 第 1 次执行
+# 第 2 次执行  
+# 第 3 次执行
+# ['Hello, Alice!', 'Hello, Alice!', 'Hello, Alice!']
+```
+
 ### wraps函数    
 ``` python
 from functools import wraps  # 导入 wraps 装饰器
@@ -260,6 +364,58 @@ def record_time(func):
 # 装饰后：
 # download = record_time(original_download)
 # download.__wrapped__ == original_download
+```
+ 装饰器堆叠
+```python
+def decorator1(func):
+    print("装饰器1执行")
+    def wrapper():
+        print("装饰器1前")
+        result = func()
+        print("装饰器1后")
+        return result
+    return wrapper
+
+def decorator2(func):
+    print("装饰器2执行")
+    def wrapper():
+        print("装饰器2前")
+        result = func()
+        print("装饰器2后")
+        return result
+    return wrapper
+
+def decorator3(func):
+    print("装饰器3执行")
+    def wrapper():
+        print("装饰器3前")
+        result = func()
+        print("装饰器3后")
+        return result
+    return wrapper
+
+@decorator1
+@decorator2
+@decorator3
+def target_function():
+    print("目标函数")
+    return "完成"
+
+print("开始调用...")
+result = target_function()
+print(f"结果: {result}")
+# @decorator1
+# @decorator2  
+# @decorator3
+# def target_function():
+#     pass
+
+# 等价于：
+# target_function = decorator1(decorator2(decorator3(target_function)))
+
+# 执行顺序：
+# 1. 先装饰：decorator3 → decorator2 → decorator1（由内向外）
+# 2. 后执行：wrapper1 → wrapper2 → wrapper3 → 原函数 → wrapper3后 → wrapper2后 → wrapper1后（由外向内的前部，然后原函数，再由内向外的后部）
 ```
 ## 类   
 ### 可见性和属性装饰器   
