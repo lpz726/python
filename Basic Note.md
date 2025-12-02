@@ -365,7 +365,22 @@ def record_time(func):
 # download = record_time(original_download)
 # download.__wrapped__ == original_download
 ```
- 装饰器堆叠
+#### functools.wraps 的工作原理：
+函数元数据：  
+__name__: 函数名    
+__doc__: 文档字符串    
+__module__: 模块名    
+__annotations__: 类型注解    
+不使用 wraps：    
+函数名变成了 “wrapper”    
+文档字符串丢失     
+其他元数据可能不完整     
+使用 wraps：     
+保留原始函数名 “say_hello”     
+保留原始文档字符串      
+保留其他元数据     
+详细的解答[wraps](https://blog.csdn.net/weixin_44705554/article/details/145440001?ops_request_misc=elastic_search_misc&request_id=3ed4841d1c829e84b2c64fd90f515688&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-145440001-null-null.142^v102^pc_search_result_base9&utm_term=python%E8%A3%85%E9%A5%B0%E5%99%A8&spm=1018.2226.3001.4187)
+### 装饰器堆叠
 ```python
 def decorator1(func):
     print("装饰器1执行")
