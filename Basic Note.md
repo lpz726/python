@@ -747,7 +747,58 @@ words = [
 counter = Counter(words)
 print(counter.most_common(3))
 ```
+## 拷贝
+[ : ] - 切片创建浅拷贝
+```python
+original = [1, 2, 3, [4, 5]]
 
+# 切片操作创建新列表
+copy1 = original[:]       # 完整切片，等价于 [0:len(original)]
+copy2 = original[1:3]     # 部分切片 [2, 3]
+
+print("original id:", id(original))  # 原列表的id
+print("copy1 id:", id(copy1))        # 新列表的id，不同！
+print("copy2 id:", id(copy2))        # 另一个新列表的id
+
+print("original == copy1:", original == copy1)  # True（值相等）
+print("original is copy1:", original is copy1)  # False（不是同一个对象）
+```
+切片操作特性：
+>创建新的列表对象
+>但只拷贝一层（浅拷贝）
+>对嵌套结构，内部对象仍然是引用
+浅拷贝 vs 深拷贝
+```python
+import copy
+
+# 原始数据结构（包含嵌套）
+original = [1, 2, [3, 4], {'a': 5}]
+
+# 1. 直接赋值（引用）
+reference = original
+reference[0] = 100
+print("直接赋值后 original[0]:", original[0])  # 100（被修改）
+
+# 重置
+original = [1, 2, [3, 4], {'a': 5}]
+# 2. 浅拷贝（list() 或 [:]）
+shallow_copy = list(original)[:]
+shallow_copy[0] = 100  # 修改第一层
+shallow_copy[2][0] = 300  # 修改嵌套列表
+print("\n浅拷贝后:")
+print("original:", original)       # [1, 2, [300, 4], {'a': 5}]
+print("shallow_copy:", shallow_copy) # [100, 2, [300, 4], {'a': 5}]
+# 注意：嵌套列表被修改了！
+# 重置
+original = [1, 2, [3, 4], {'a': 5}]
+# 3. 深拷贝
+deep_copy = copy.deepcopy(original)
+deep_copy[0] = 100
+deep_copy[2][0] = 300
+print("\n深拷贝后:")
+print("original:", original)       # [1, 2, [3, 4], {'a': 5}]（不变）
+print("deep_copy:", deep_copy)     # [100, 2, [300, 4], {'a': 5}]
+```
 ## 字典推导式语法总结
 ##### {key_expression: value_expression for item in iterable if condition}
 ### example:
