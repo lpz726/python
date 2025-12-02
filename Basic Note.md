@@ -195,7 +195,12 @@ def retry(max_attempts=3):
             return None
         return wrapper
     return decorator
-
+'''
+三层嵌套函数的角色
+retry(max_attempts=3) → 返回 decorator 函数
+decorator(func) → 返回 wrapper 函数  
+wrapper(*args, **kwargs) → 实际执行重试逻辑
+'''
 # 使用装饰器
 @retry(max_attempts=3)
 def risky_operation():
@@ -436,6 +441,73 @@ scores = []
 for i in range(5):
     row = [None, None, None]  # 每次都新建一个列表
     scores.append(row)
+```
+## [Python Tutor](http://pythontutor.com/) - VISUALIZE CODE AND GET LIVE HELP
+## 工具模块
+>heapq模块（堆排序）
+### 什么是堆（Heap）？  
+堆是一种特殊的完全二叉树，满足以下性质：   
+最小堆：每个节点的值都 ≤ 其子节点的值（根节点最小）
+最大堆：每个节点的值都 ≥ 其子节点的值（根节点最大）
+>-Python 的 heapq 模块实现的是最小堆。
+```python
+import heapq
+
+# 示例数据
+list1 = [34, 25, 12, 99, 87, 63, 58, 78, 88, 92]
+
+# 1. 找出最大的3个元素
+print(heapq.nlargest(3, list1))  # 输出: [99, 92, 88]
+
+# 2. 找出最小的3个元素
+print(heapq.nsmallest(3, list1))  # 输出: [12, 25, 34]
+
+# 复杂数据结构
+list2 = [
+    {'name': 'IBM', 'shares': 100, 'price': 91.1},
+    {'name': 'AAPL', 'shares': 50, 'price': 543.22},
+    {'name': 'FB', 'shares': 200, 'price': 21.09},
+    {'name': 'HPQ', 'shares': 35, 'price': 31.75},
+    {'name': 'YHOO', 'shares': 45, 'price': 16.35},
+    {'name': 'ACME', 'shares': 75, 'price': 115.65}
+]
+
+# 3. 找出价格最高的2只股票
+print(heapq.nlargest(2, list2, key=lambda x: x['price']))
+# 输出: [{'name': 'AAPL', 'shares': 50, 'price': 543.22},
+#        {'name': 'ACME', 'shares': 75, 'price': 115.65}]
+
+# 4. 找出份额最高的2只股票
+print(heapq.nlargest(2, list2, key=lambda x: x['shares']))
+# 输出: [{'name': 'FB', 'shares': 200, 'price': 21.09},
+#        {'name': 'IBM', 'shares': 100, 'price': 91.1}]
+
+#heapify() - 将列表转为堆
+# 创建一个普通列表
+nums = [3, 1, 4, 1, 5, 9, 2, 6, 5]
+print("原始列表:", nums)  # [3, 1, 4, 1, 5, 9, 2, 6, 5]
+# 转换为堆（原地修改）
+heapq.heapify(nums)
+print("堆化后:", nums)  # [1, 1, 2, 3, 5, 9, 4, 6, 5]
+# 注意：堆不是完全排序的，但保证第一个元素最小
+
+# 验证堆性质
+print("最小元素:", nums[0])  # 1
+
+#heappush() - 添加元素到堆
+# 创建一个空堆（用普通列表）
+heap = []
+# 添加元素
+heapq.heappush(heap, 5)
+heapq.heappush(heap, 2)
+heapq.heappush(heap, 9)
+heapq.heappush(heap, 1)
+heapq.heappush(heap, 6)
+
+print("堆:", heap)  # [1, 2, 9, 5, 6]
+print("堆顶元素（最小）:", heap[0])  # 1
+
+
 ```
 
 ## 字典推导式语法总结
