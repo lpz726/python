@@ -10,6 +10,8 @@ python learning
 [工具模块](#工具模块)
 [拷贝](#拷贝)
 [锁](#锁的详细解释)
+[面对对象编程](#面对对象编程)
+[抽象类](#抽象类)
 
 ## 特性对比表
 | 特性  	|列表(List)|	元组(Tuple)|	字典(Dict)|	类(Class)|
@@ -983,3 +985,280 @@ test = TestLock()
 ```
 Lock：标准锁，同一线程不能多次获取，否则会死锁
 RLock：可重入锁，同一线程可以多次获取，必须有相同次数的释放
+## 面对对象编程
+三大支柱：封装、继承、多态
+### 抽象类  
+抽象类就是对一堆类共同内容的抽取，包括：属性和方法。   
+抽象类的特点
+> - （1）抽象类必须包含一个或多个抽象方法，也可以包含普通方法。
+> - （2）抽象类的抽象方法，在抽象类中并不作实现。
+> - （3）抽象类不能被实例化
+
+**抽象类的子类要想进行实例化，必须先实现抽象父类中的所有抽象方法！！！！！！！！！！！！！**
+普通父类的示例
+```python
+# coding:utf-8
+
+# 不是抽象类,是一个普通父类
+class Parent(object):
+    # 构造方法
+    def __init__(self, sex, surname, job):
+        self.sex = sex
+        self.surname = surname
+        self.job = job
+
+    # 已经实现的普通方法
+    def run(self):
+        print("running...")
+
+    def say(self):
+        print("saying...")
+
+    def is_adult(self):
+        print("True")
+    # 未实现的普通方法
+    def hobby(self):
+        pass
+# 子类
+class Son(Parent):
+    # 重写
+    def is_adult(self):
+        print("False")
+# 实例化
+s = Son(sex="male", surname="Zhang", job="student")
+s.is_adult()
+s.hobby()
+
+#运行输出 False
+```
+抽象父类的示例
+```python
+#coding:utf-8
+# 从abc库中导入ABC, abstractmethod模块
+from abc import ABC, abstractmethod
+
+# 抽象父类
+class Parent(ABC):
+    # 构造方法
+    def __init__(self, sex, surname, job):
+        self.sex = sex
+        self.surname = surname
+        self.job = job
+
+    # 已经实现的普通方法
+    def run(self):
+        print("running...")
+
+    def say(self):
+        print("saying...")
+
+    def is_adult(self):
+        print("True")
+
+    # 抽象方法
+    @abstractmethod
+    def hobby(self):
+        pass
+
+# 子类
+class Son(Parent):
+    # 重写
+    def is_adult(self):
+        print("False")
+
+
+# 实例化
+s = Son(sex="male", surname="Zhang", job="student")
+s.is_adult()
+s.hobby()
+#运行发生报错：原因不能实例化带有抽象方法的抽象类son
+#修改如下
+# 子类
+class Son(Parent):
+    # 重写
+    def is_adult(self):
+        print("False")
+    # 实现抽象父类的抽象方法
+    def hobby(self):
+        print("basketball")
+#运行结果  False basketball
+#子类实现抽象父类中的抽象方法后的输出
+```
+#### [抽象类详解](https://blog.csdn.net/elon15/article/details/127176217?ops_request_misc=elastic_search_misc&request_id=7b27982cb17299ad09aece63a358d204&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-127176217-null-null.142^v102^pc_search_result_base9&utm_term=python%E6%8A%BD%E8%B1%A1%E7%B1%BB&spm=1018.2226.3001.4187)
+example:    
+工资结算系统
+```python
+"""
+月薪结算系统 - 部门经理每月15000 程序员每小时200 销售员1800底薪加销售额5%提成
+"""
+from abc import ABCMeta, abstractmethod
+
+
+class Employee(metaclass=ABCMeta):
+    """员工(抽象类)"""
+
+    def __init__(self, name):
+        self.name = name
+
+    @abstractmethod
+    def get_salary(self):
+        """结算月薪(抽象方法)"""
+        pass
+
+
+class Manager(Employee):
+    """部门经理"""
+
+    def get_salary(self):
+        return 15000.0
+
+
+class Programmer(Employee):
+    """程序员"""
+
+    def __init__(self, name, working_hour=0):
+        self.working_hour = working_hour
+        super().__init__(name)
+
+    def get_salary(self):
+        return 200.0 * self.working_hour
+
+
+class Salesman(Employee):
+    """销售员"""
+
+    def __init__(self, name, sales=0.0):
+        self.sales = sales
+        super().__init__(name)
+
+    def get_salary(self):
+        return 1800.0 + self.sales * 0.05
+
+
+class EmployeeFactory:
+    """创建员工的工厂（工厂模式 - 通过工厂实现对象使用者和对象之间的解耦合）"""
+
+    @staticmethod
+    def create(emp_type, *args, **kwargs):
+        """创建员工"""
+        all_emp_types = {'M': Manager, 'P': Programmer, 'S': Salesman}
+        cls = all_emp_types[emp_type.upper()]
+        return cls(*args, **kwargs) if cls else None
+
+
+def main():
+    """主函数"""
+    emps = [
+        EmployeeFactory.create('M', '曹操'), 
+        EmployeeFactory.create('P', '荀彧', 120),
+        EmployeeFactory.create('P', '郭嘉', 85), 
+        EmployeeFactory.create('S', '典韦', 123000),
+    ]
+    for emp in emps:
+        print(f'{emp.name}: {emp.get_salary():.2f}元')
+
+
+if __name__ == '__main__':
+    main()
+```
+### 类与类的关系
+is-a关系：继承    
+has-a关系：关联 / 聚合 / 合成     
+use-a关系：依赖   
+
+example
+```python
+"""
+经验：符号常量总是优于字面常量，枚举类型是定义符号常量的最佳选择
+"""
+from enum import Enum, unique
+
+import random
+
+
+@unique
+class Suite(Enum):
+    """花色"""
+
+    SPADE, HEART, CLUB, DIAMOND = range(4)
+
+    def __lt__(self, other):
+        return self.value < other.value
+
+
+class Card:
+    """牌"""
+
+    def __init__(self, suite, face):
+        """初始化方法"""
+        self.suite = suite
+        self.face = face
+
+    def show(self):
+        """显示牌面"""
+        suites = ['♠︎', '♥︎', '♣︎', '♦︎']
+        faces = ['', 'A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
+        return f'{suites[self.suite.value]}{faces[self.face]}'
+
+    def __repr__(self):
+        return self.show()
+
+
+class Poker:
+    """扑克"""
+
+    def __init__(self):
+        self.index = 0
+        self.cards = [Card(suite, face)
+                      for suite in Suite
+                      for face in range(1, 14)]
+
+    def shuffle(self):
+        """洗牌（随机乱序）"""
+        random.shuffle(self.cards)
+        self.index = 0
+
+    def deal(self):
+        """发牌"""
+        card = self.cards[self.index]
+        self.index += 1
+        return card
+
+    @property
+    def has_more(self):
+        return self.index < len(self.cards)
+
+
+class Player:
+    """玩家"""
+
+    def __init__(self, name):
+        self.name = name
+        self.cards = []
+
+    def get_one(self, card):
+        """摸一张牌"""
+        self.cards.append(card)
+
+    def sort(self, comp=lambda card: (card.suite, card.face)):
+        """整理手上的牌"""
+        self.cards.sort(key=comp)
+
+
+def main():
+    """主函数"""
+    poker = Poker()
+    poker.shuffle()
+    players = [Player('东邪'), Player('西毒'), Player('南帝'), Player('北丐')]
+    while poker.has_more:
+        for player in players:
+                player.get_one(poker.deal())
+    for player in players:
+        player.sort()
+        print(player.name, end=': ')
+        print(player.cards)
+
+
+if __name__ == '__main__':
+    main()
+```
