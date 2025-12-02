@@ -168,7 +168,7 @@ triple = create_multiplier(3)
 
 print(double(5))  # 10
 print(triple(5))  # 15
-
+#和嵌套函数类似
 # 在 map 中使用
 numbers = [1, 2, 3, 4]
 double_all = list(map(create_multiplier(2), numbers))
