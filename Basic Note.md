@@ -531,6 +531,27 @@ print("弹出的元素:", result)  # 2（原本的最小值）
 print("操作后的堆:", heap)  # [3, 5, 8]
 
 # 对比heapreplace：如果新元素比堆顶大，heappushpop效率更高
+
+#实现最大堆
+class MaxHeap:
+    """通过取反实现最大堆"""
+    def __init__(self):
+        self.heap = []
+    def push(self, value):
+        heapq.heappush(self.heap, -value)  # 存负值
+    def pop(self):
+        return -heapq.heappop(self.heap)  # 取负值恢复
+    def peek(self):
+        return -self.heap[0] if self.heap else None    
+    def __len__(self):
+        return len(self.heap)
+# 测试最大堆
+max_heap = MaxHeap()
+for num in [3, 1, 4, 1, 5, 9]:
+    max_heap.push(num)
+print("最大堆内容（从大到小弹出）:")
+while len(max_heap) > 0:
+    print(max_heap.pop(), end=" ")  # 9 5 4 3 1 1
 ```
 
 ## 字典推导式语法总结
