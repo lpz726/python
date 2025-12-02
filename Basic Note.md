@@ -19,6 +19,195 @@ python learning
 >num：代表元素在结构中的位置  
 >del：代表删除的元素
 ## 函数   
+### 高级函数
+map 函数
+>原理：对可迭代对象中的每个元素应用指定函数，返回一个迭代器
+```python
+# 基本用法
+numbers = [1, 2, 3, 4, 5]
+
+# 使用 map 对每个元素求平方
+squared = map(lambda x: x ** 2, numbers)
+print(list(squared))  # [1, 4, 9, 16, 25]
+
+# 等价于列表推导式
+squared_list = [x ** 2 for x in numbers]
+print(squared_list)   # [1, 4, 9, 16, 25]
+
+# 多个可迭代对象
+nums1 = [1, 2, 3]
+nums2 = [4, 5, 6]
+sums = map(lambda x, y: x + y, nums1, nums2)
+print(list(sums))  # [5, 7, 9]
+# 对应位置元素相加
+# 使用内置函数
+names = ['alice', 'BOB', 'Charlie']
+capitalized = map(str.capitalize, names)
+print(list(capitalized))  # ['Alice', 'Bob', 'Charlie']
+```
+filter 函数
+>原理：过滤可迭代对象，保留使函数返回 True 的元素
+```python
+# 基本用法：过滤满足条件的元素
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+# 过滤偶数
+evens = filter(lambda x: x % 2 == 0, numbers)
+print(list(evens))  # [2, 4, 6, 8, 10]
+
+# 过滤非空字符串
+words = ['hello', '', 'world', '', 'python', '']
+non_empty = filter(None, words)  # None 表示 bool(item)
+print(list(non_empty))  # ['hello', 'world', 'python']
+
+# 使用函数对象
+def is_positive(n):
+    return n > 0
+
+# 过滤特定类型
+mixed = [1, 'hello', 3.14, True, [1, 2], {'a': 1}]
+ints_only = filter(lambda x: isinstance(x, int), mixed)
+print(list(ints_only))  # [1, True]
+```
+ reduce() 函数
+ >原理：对可迭代对象中的元素进行累积计算（需要从 functools 导入）
+```python
+from functools import reduce
+
+# 基本用法：计算累加
+numbers = [1, 2, 3, 4, 5]
+sum_result = reduce(lambda x, y: x + y, numbers)
+print(sum_result)  # 15
+
+# 计算阶乘
+factorial = reduce(lambda x, y: x * y, range(1, 6))
+print(factorial)  # 120
+
+# 带初始值
+numbers = [1, 2, 3]
+result = reduce(lambda x, y: x + y, numbers, 10)
+print(result)  # 16 (10 + 1 + 2 + 3)
+#执行过程分析：
+# reduce(lambda x, y: x + y, [1, 2, 3, 4]) 的执行步骤：
+# 步骤1: 1 + 2 = 3
+# 步骤2: 3 + 3 = 6  
+# 步骤3: 6 + 4 = 10
+# 结果: 10
+```
+sorted() 函数
+>原理：对可迭代对象排序，可通过 key 参数指定排序依据
+```python
+# 基本排序
+numbers = [3, 1, 4, 1, 5, 9, 2]
+print(sorted(numbers))  # [1, 1, 2, 3, 4, 5, 9]
+
+# 使用 key 参数
+words = ['apple', 'banana', 'cherry', 'date']
+print(sorted(words, key=len))  # 按长度排序: ['date', 'apple', 'banana', 'cherry']
+
+# 复杂对象排序
+students = [
+    {'name': 'Alice', 'score': 85},
+    {'name': 'Bob', 'score': 92},
+    {'name': 'Charlie', 'score': 78}
+]
+
+# 按分数排序
+by_score = sorted(students, key=lambda s: s['score'])
+print(by_score)
+# [{'name': 'Charlie', 'score': 78}, {'name': 'Alice', 'score': 85}, {'name': 'Bob', 'score': 92}]
+```
+### 自定义高阶函数
+接受函数作为参数
+```python
+def apply_operation(data, operation):
+    """
+    对数据应用操作的高阶函数
+    
+    参数:
+        data: 输入数据
+        operation: 操作函数
+    """
+    return [operation(item) for item in data]
+
+# 使用示例
+numbers = [1, 2, 3, 4, 5]
+
+# 应用平方操作
+squared = apply_operation(numbers, lambda x: x ** 2)
+print(squared)  # [1, 4, 9, 16, 25]
+
+# 应用加倍操作
+doubled = apply_operation(numbers, lambda x: x * 2)
+print(doubled)  # [2, 4, 6, 8, 10]
+
+# 使用预定义的函数
+def increment(x):
+    return x + 1
+
+incremented = apply_operation(numbers, increment)
+print(incremented)  # [2, 3, 4, 5, 6]
+```
+返回函数的函数（函数工厂）
+```python
+def create_multiplier(factor):
+    """
+    创建乘法器函数
+    
+    参数:
+        factor: 乘数因子
+    返回:
+        一个乘法函数
+    """
+    def multiplier(x):
+        return x * factor
+    return multiplier
+
+# 使用函数工厂
+double = create_multiplier(2)
+triple = create_multiplier(3)
+
+print(double(5))  # 10
+print(triple(5))  # 15
+
+# 在 map 中使用
+numbers = [1, 2, 3, 4]
+double_all = list(map(create_multiplier(2), numbers))
+print(double_all)  # [2, 4, 6, 8]
+```
+装饰器作为高阶函数
+```python
+def retry(max_attempts=3):
+    """
+    重试装饰器
+    
+    参数:
+        max_attempts: 最大重试次数
+    """
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            for attempt in range(max_attempts):
+                try:
+                    return func(*args, **kwargs)
+                except Exception as e:
+                    if attempt == max_attempts - 1:
+                        raise e
+                    print(f"尝试 {attempt + 1} 失败，重试...")
+            return None
+        return wrapper
+    return decorator
+
+# 使用装饰器
+@retry(max_attempts=3)
+def risky_operation():
+    import random
+    if random.random() < 0.7:  # 70% 概率失败
+        raise ValueError("操作失败")
+    return "操作成功"
+
+# 测试
+result = risky_operation()
+print(result)
+```
 ### 装饰器  
 ```python
 def record_time(func):
@@ -248,6 +437,7 @@ for i in range(5):
     row = [None, None, None]  # 每次都新建一个列表
     scores.append(row)
 ```
+
 ## 字典推导式语法总结
 ##### {key_expression: value_expression for item in iterable if condition}
 ### example:
