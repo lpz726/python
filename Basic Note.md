@@ -422,7 +422,39 @@ __module__: 模块名
 使用 wraps：     
 >保留原始函数名 “say_hello”     
 保留原始文档字符串      
->保留其他元数据     
+>保留其他元数据
+
+example:
+```python
+# 不使用 wraps 的情况
+def simple_decorator(cls):
+    def wrapper(*args, **kwargs):
+        return cls(*args, **kwargs)
+    return wrapper
+
+@simple_decorator
+class MyClass:
+    """我的类"""
+    pass
+
+print(MyClass.__name__)   # 输出: wrapper（不是 MyClass）
+print(MyClass.__doc__)    # 输出: None（丢失了文档字符串）
+
+# 使用 wraps 的情况
+def better_decorator(cls):
+    @wraps(cls)
+    def wrapper(*args, **kwargs):
+        return cls(*args, **kwargs)
+    return wrapper
+
+@better_decorator
+class MyClass2:
+    """我的类2"""
+    pass
+
+print(MyClass2.__name__)  # 输出: MyClass2
+print(MyClass2.__doc__)   # 输出: 我的类2
+```
 详细的解答[wraps](https://blog.csdn.net/weixin_44705554/article/details/145440001?ops_request_misc=elastic_search_misc&request_id=3ed4841d1c829e84b2c64fd90f515688&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-145440001-null-null.142^v102^pc_search_result_base9&utm_term=python%E8%A3%85%E9%A5%B0%E5%99%A8&spm=1018.2226.3001.4187)    
 
 由于对带装饰功能的函数添加了@wraps装饰器，可以通过func.__wrapped__方式获得被装饰之前的函数或类来取消装饰器的作用。
@@ -871,3 +903,82 @@ print("deep_copy:", deep_copy)     # [100, 2, [300, 4], {'a': 5}]
 for key, value in prices.items(): 遍历每个股票代码和价格  
 if value > 100: 筛选条件，只保留价格大于100的股票  
 key: value: 保留原始的键值对结构  
+
+## 线程安全的单例装饰器
+ 单例模式：确保一个类只有一个实例，并提供一个全局访问点。
+```python
+from functools import wraps
+from threading import RLock
+
+
+def singleton(cls):
+    """线程安全的单例装饰器"""
+    instances = {}
+    locker = RLock()
+
+    @wraps(cls)
+    def wrapper(*args, **kwargs):
+        if cls not in instances:   # 第一次检查（不加锁，快速）
+            with locker:           # 获取锁
+                if cls not in instances:   # 第二次检查（加锁，确保安全）
+                    instances[cls] = cls(*args, **kwargs)  # 创建实例
+        return instances[cls]
+
+    return wrapper
+```
+基本用法
+```python
+@singleton
+class DatabaseConnection:
+    def __init__(self, connection_string):
+        self.connection_string = connection_string
+        print(f"创建数据库连接: {connection_string}")
+    
+    def query(self, sql):
+        return f"执行查询: {sql}"
+
+# 测试
+db1 = DatabaseConnection("mysql://localhost:3306/mydb")
+db2 = DatabaseConnection("mysql://localhost:3306/otherdb")
+
+print(f"db1 is db2: {db1 is db2}")  # True
+print(f"db1.connection_string: {db1.connection_string}")  # mysql://localhost:3306/mydb
+print(f"db2.connection_string: {db2.connection_string}")  # mysql://localhost:3306/mydb（相同）
+```
+### RLock vs Lock
+### [锁的详细解释](https://blog.csdn.net/qdPython/article/details/132585697?ops_request_misc=&request_id=&biz_id=102&utm_term=python%E7%9A%84%E9%94%81%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-0-132585697.142^v102^pc_search_result_base9&spm=1018.2226.3001.4187)
+```python
+from threading import Lock, RLock, Thread
+import time
+
+class TestLock:
+    def __init__(self):
+        self.lock = Lock()
+        self.rlock = RLock()
+    
+    def method_a(self):
+        with self.lock:
+            print("Lock: 在 method_a 中获取了锁")
+            time.sleep(0.1)
+            # self.method_b()  # 如果用 Lock，这里会死锁
+    
+    def method_b(self):
+        with self.lock:
+            print("Lock: 在 method_b 中获取了锁")
+    
+    def method_c(self):
+        with self.rlock:
+            print("RLock: 在 method_c 中获取了锁")
+            time.sleep(0.1)
+            self.method_d()  # RLock 允许重入，不会死锁
+    
+    def method_d(self):
+        with self.rlock:
+            print("RLock: 在 method_d 中获取了锁")
+
+test = TestLock()
+# 如果用 Lock，调用 method_a 会尝试获取已经持有的锁，导致死锁
+# 用 RLock 则允许同一个线程多次获取锁
+```
+Lock：标准锁，同一线程不能多次获取，否则会死锁
+RLock：可重入锁，同一线程可以多次获取，必须有相同次数的释放
