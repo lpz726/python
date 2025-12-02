@@ -256,7 +256,8 @@ result = risky_operation()
 print(result)
 ```
 ## 装饰器  
-概念：装饰器是一种设计模式，允许在不修改原函数代码的情况下，动态地扩展函数的功能。
+概念：装饰器是一种设计模式，允许在不修改原函数代码的情况下，动态地扩展函数的功能。  
+
 ```python
 def record_time(func):
     
@@ -422,7 +423,9 @@ __module__: 模块名
 >保留原始函数名 “say_hello”     
 保留原始文档字符串      
 >保留其他元数据     
-详细的解答[wraps](https://blog.csdn.net/weixin_44705554/article/details/145440001?ops_request_misc=elastic_search_misc&request_id=3ed4841d1c829e84b2c64fd90f515688&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-145440001-null-null.142^v102^pc_search_result_base9&utm_term=python%E8%A3%85%E9%A5%B0%E5%99%A8&spm=1018.2226.3001.4187)
+详细的解答[wraps](https://blog.csdn.net/weixin_44705554/article/details/145440001?ops_request_misc=elastic_search_misc&request_id=3ed4841d1c829e84b2c64fd90f515688&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-145440001-null-null.142^v102^pc_search_result_base9&utm_term=python%E8%A3%85%E9%A5%B0%E5%99%A8&spm=1018.2226.3001.4187)    
+
+由于对带装饰功能的函数添加了@wraps装饰器，可以通过func.__wrapped__方式获得被装饰之前的函数或类来取消装饰器的作用。
 ### 装饰器堆叠
 ```python
 def decorator1(func):
