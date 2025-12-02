@@ -449,7 +449,7 @@ for i in range(5):
 堆是一种特殊的完全二叉树，满足以下性质：   
 最小堆：每个节点的值都 ≤ 其子节点的值（根节点最小）
 最大堆：每个节点的值都 ≥ 其子节点的值（根节点最大）
->-Python 的 heapq 模块实现的是最小堆。
+>Python 的 heapq 模块实现的是最小堆。
 ```python
 import heapq
 
@@ -507,7 +507,30 @@ heapq.heappush(heap, 6)
 print("堆:", heap)  # [1, 2, 9, 5, 6]
 print("堆顶元素（最小）:", heap[0])  # 1
 
+#heappop() - 弹出最小元素
+heap = [1, 2, 9, 5, 6]
+# 弹出最小元素
+min_element = heapq.heappop(heap)
+print("弹出的最小元素:", min_element)  # 1
+print("弹出后的堆:", heap)  # [2, 5, 9, 6]
 
+#heapreplace() - 弹出最小并添加新元素
+heap = [1, 3, 5, 7, 9]
+heapq.heapify(heap)
+# 弹出最小元素，同时插入新元素
+old_min = heapq.heapreplace(heap, 4)
+print("被替换的最小元素:", old_min)  # 1
+print("替换后的堆:", heap)  # [3, 4, 5, 7, 9]
+
+# heappushpop() - 先添加再弹出
+heap = [2, 5, 8]
+heapq.heapify(heap)
+# 先添加3，然后弹出最小元素
+result = heapq.heappushpop(heap, 3)
+print("弹出的元素:", result)  # 2（原本的最小值）
+print("操作后的堆:", heap)  # [3, 5, 8]
+
+# 对比heapreplace：如果新元素比堆顶大，heappushpop效率更高
 ```
 
 ## 字典推导式语法总结
