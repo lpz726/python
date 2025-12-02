@@ -1,7 +1,7 @@
 # python
 python learning
-# 目录
--[高级函数](https://blog.csdn.net/weixin_44705554/article/details/145440001?ops_request_misc=elastic_search_misc&request_id=3ed4841d1c829e84b2c64fd90f515688&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-145440001-null-null.142^v102^pc_search_result_base9&utm_term=python%E8%A3%85%E9%A5%B0%E5%99%A8&spm=1018.2226.3001.4187)
+## 目录
+[高级函数](#高级函数)
 ## 特性对比表
 | 特性  	|列表(List)|	元组(Tuple)|	字典(Dict)|	类(Class)|
 | ------- | ------------|------------|------------|------------|
@@ -23,6 +23,8 @@ python learning
 
 ## 函数   
 ### 高级函数
+<p id="1"></p> 
+
 map 函数
 >原理：对可迭代对象中的每个元素应用指定函数，返回一个迭代器
 ```python
