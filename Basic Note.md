@@ -12,9 +12,9 @@ python learning
 [锁](#锁的详细解释)
 [面对对象编程](#面对对象编程)
 [抽象类](#抽象类)
-[Linux](#Linux)
 [Linux操作指令](#操作指令)
 [Linux用户管理](#用户管理)
+[Linux文件系统](#文件系统)
 
 ## 特性对比表
 | 特性  	|列表(List)|	元组(Tuple)|	字典(Dict)|集合(Set)|	类(Class)|
@@ -1465,6 +1465,60 @@ ls: cannot open directory /root: Permission denied
 > 说明：如果希望用户能够以管理员身份执行命令，用户必须要出现在sudoers名单中，sudoers文件在 /etc目录下，如果希望直接编辑该文件也可以使用下面的命令
 
 ### [more details](https://github.com/lpz726/Python-100-Days/blob/master/Day31-35/34-35.%E7%8E%A9%E8%BD%ACLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F.md#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86)
+
+### 文件系统
+#### 目录结构
+/bin - 基本命令的二进制文件。    
+/boot - 引导加载程序的静态文件。    
+/dev - 设备文件。     
+/etc - 配置文件。     
+/home - 普通用户主目录的父目录。     
+/lib - 共享库文件。       
+/lib64 - 共享64位库文件。     
+/lost+found - 存放未链接文件。    
+/media - 自动识别设备的挂载目录。    
+/mnt - 临时挂载文件系统的挂载点。    
+/opt - 可选插件软件包安装位置。     
+/proc - 内核和进程信息。      
+/root - 超级管理员用户主目录。      
+/run - 存放系统运行时需要的东西。     
+/sbin - 超级用户的二进制文件。     
+/sys - 设备的伪文件系统。      
+/tmp - 临时文件夹。     
+/usr - 用户应用目录。     
+/var - 变量数据目录。       
+#### [磁盘管理](https://github.com/lpz726/Python-100-Days/blob/master/Day31-35/34-35.%E7%8E%A9%E8%BD%ACLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F.md#%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86)
+
+#### [编辑器 - vim](https://github.com/lpz726/Python-100-Days/blob/master/Day31-35/34-35.%E7%8E%A9%E8%BD%ACLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F.md#%E7%BC%96%E8%BE%91%E5%99%A8---vim)
+
+#### [软件安装和配置](https://github.com/lpz726/Python-100-Days/blob/master/Day31-35/34-35.%E7%8E%A9%E8%BD%ACLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F.md#%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE)
+
+#### [源代码构建安装](https://github.com/lpz726/Python-100-Days/blob/master/Day31-35/34-35.%E7%8E%A9%E8%BD%ACLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F.md#%E6%BA%90%E4%BB%A3%E7%A0%81%E6%9E%84%E5%BB%BA%E5%AE%89%E8%A3%85)
+
+#### [配置服务](https://github.com/lpz726/Python-100-Days/blob/master/Day31-35/34-35.%E7%8E%A9%E8%BD%ACLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F.md#%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1)
+
+#### [计划任务](https://github.com/lpz726/Python-100-Days/blob/master/Day31-35/34-35.%E7%8E%A9%E8%BD%ACLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F.md#%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1)
+
+#### [网络访问和管理](https://github.com/lpz726/Python-100-Days/blob/master/Day31-35/34-35.%E7%8E%A9%E8%BD%ACLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F.md#%E7%BD%91%E7%BB%9C%E8%AE%BF%E9%97%AE%E5%92%8C%E7%AE%A1%E7%90%86)
+
+#### [进程管理](https://github.com/lpz726/Python-100-Days/blob/master/Day31-35/34-35.%E7%8E%A9%E8%BD%ACLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F.md#%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86)
+
+#### [系统诊断](https://github.com/lpz726/Python-100-Days/blob/master/Day31-35/34-35.%E7%8E%A9%E8%BD%ACLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F.md#%E7%B3%BB%E7%BB%9F%E8%AF%8A%E6%96%AD)
+
+#### [Shell编程](https://github.com/lpz726/Python-100-Days/blob/master/Day31-35/34-35.%E7%8E%A9%E8%BD%ACLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F.md#shell%E7%BC%96%E7%A8%8B)
+
+#### [Linux命令行常用快捷键](https://github.com/lpz726/Python-100-Days/blob/master/Day31-35/34-35.%E7%8E%A9%E8%BD%ACLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F.md#%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
