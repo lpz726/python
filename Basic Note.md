@@ -12,6 +12,9 @@ python learning
 [锁](#锁的详细解释)
 [面对对象编程](#面对对象编程)
 [抽象类](#抽象类)
+[Linux系统](#Linux)
+[Linux操作指令](#操作指令)
+[Linux用户管理](#用户管理)
 
 ## 特性对比表
 | 特性  	|列表(List)|	元组(Tuple)|	字典(Dict)|集合(Set)|	类(Class)|
@@ -1309,3 +1312,159 @@ list2 = []
 list1.append(list2)
 list2.append(list1)
 ```
+## Linux system
+### 操作指令
+#### 文件和文件夹操作
+#### ls命令（list）：列出当前目录下的内容
+>- ls -a 显示以点开头的文件和目录（隐藏文件）
+>- ls -l 以列表的形式展示当前目录和内容
+>> ls -al为上面两者的组合使用与ls -la,ls -l-a效果相同
+>- ls -l -h 以列表的形式展示当前目录下的内容以及它们的大小
+>- -R：遇到目录要进行递归展开（继续列出目录下面的文件和目录）。
+>- -d：只列出目录，不列出其他内容。
+>- -S / -t：按大小/时间排序
+>- 查看文件内容 - cat / tac / head / tail / more / less / rev / od。
+#### cd命令（Change Directory）：切换当前工作目录
+>- cd命令后面可以跟相对路径（以当前路径作为参照）或绝对路径（以/开头）来切换到指定的目录cd命令后面可以跟相对路径（以当前路径作为参照）或绝对路径（以/开头）来切换到指定的目录
+>- cd ..来返回上一级目录
+>- cd ../..返回上上级
+>- cd/ 切换到根目录
+>- cd 切换到home目录
+#### pwd命令（Print Work Directory）：查看当前工作目录
+>-  pwd命令，无选项，无参数，直接输入pwd即可
+
+#### 创建/删除空目录 - mkdir / rmdir。  
+```python
+[root ~]# mkdir abc   
+[root ~]# mkdir -p xyz/abc
+[root ~]# mkdir ./abc    表示在当前目录下创建    
+[root ~]# mkdir ../abc   表示在上一层目录下创建
+[root ~]# mkdir ~/abc    表示在home目录下创建
+[root ~]# mkdir -p test4/good/nb666  --可以通过-p选项，将一整个链条都创建完成。
+[root ~]# ls    
+test1  test2  test20250103  test3  test4   
+[root ~]# cd test4
+[root2 test4]# ls
+good
+[root ~]# rmdir abc
+```
+##### 注意：mkdir创建文件夹需要修改权限，请确保操作均在HOME目录内，不要在HOME外操作。涉及到权限问题，HOME外无法成功。
+#### 创建/删除文件 - touch / rm。
+```python
+[root ~]# touch readme.txt
+[root ~]# touch error.txt
+[root ~]# rm error.txt
+rm: remove regular empty file ‘error.txt’? y
+[root ~]# rm -rf xyz
+```
+touch命令用于创建空白文件或修改文件时间。在Linux系统中一个文件有三种时间：
+>- 更改内容的时间 - mtime。
+>- 更改权限的时间 - ctime。
+>- 最后访问时间 - atime。
+     
+rm的几个重要参数：
+>- -i：交互式删除，每个删除项都会进行询问。
+>- -r：删除目录并递归的删除目录中的文件和目录。
+>- -f：强制删除，忽略不存在的文件，没有任何提示。
+#### 拷贝/移动文件 - cp / mv
+```python
+[root ~]# mkdir backup
+[root ~]# cp sohu.html backup/
+[root ~]# cd backup
+[root backup]# ls
+sohu.html
+[root backup]# mv sohu.html sohu_index.html
+[root backup]# ls
+sohu_index.html
+```
+#### 文件重命名 - rename。
+```python
+[root@iZwz97tbgo9lkabnat2lo8Z ~]# rename .htm .html *.htm
+```
+#### 查找文件和查找内容 - find / grep。
+```python
+[root@iZwz97tbgo9lkabnat2lo8Z ~]# find / -name "*.html"
+/root/sohu.html
+/root/backup/sohu_index.html
+[root@iZwz97tbgo9lkabnat2lo8Z ~]# grep "<script>" sohu.html -n
+20:<script>
+```
+#### cat命令：查看文件内容
+语法：cat Linux路径   
+cat命令同样没有选项，参数必填，参数表示：被查看的文件路径，相对、绝对、特殊路径符都可以使用。    
+####  more命令：分页查看文件内容（内容过多时支持翻页展示）
+more命令同样可以查看文件内容，同cat不同的是： cat是直接将内容全部显示出来，more支持翻页，如果文件内容过多，可以一页页的展示。       
+语法：more Linux路径      
+more同样没有选项，参数必填，参数表示：被查看的文件路径，相对、绝对、特殊路径符都可以使用。      
+>Linux系统内置有一个文件，路径为：/etc/services，可以使用more命令查看     
+more /etc/services     
+在查看的过程中，通过空格翻页    
+>通过按q 即可退出查看
+#### which命令（查找命令）：查找各命令的程序文件存放在哪个路径
+##### 语法：which  要查找的命令  无需选项，只需要参数表示要查找哪个命令
+#### find命令（查找文件）：按文件名/文件大小，查找该文件存放在哪个路径
+##### 语法：find 起始路径   -name  "被查找的文件名"
+也可使用通配符*
+>  test*，表示匹配任何以test开头的内容。
+> *test，表示匹配任何以test结尾的内容 。
+>  *test*，表示匹配任何包含test的内容。
+
+find命令 - 按文件大小查找文件    
+语法：find 起始路径  -size  +|-   n[KMG]   
+>  +、-表示 大于和小于
+>  n表示 大小数字。
+>  kMG表示 大小单位，k(小写字母)表示kb，M表示MB，G表示GB。
+
+example
+```sql
+语法：find 起始路径  -size  +|-  n[KMG]
+示例： 
+从根目录/开始查找小于10KB的文件： find / -size -10k 
+从根目录/开始查找大于100MB的文件：find / -size +100M 
+从根目录/开始查找大于1GB的文件：find / -size +1G
+```
+### [更多linux指令](https://blog.csdn.net/weixin_45806267/article/details/144500055?ops_request_misc=elastic_search_misc&request_id=53c32cf07f8c7c0cd5cf4f6b9afaf9c0&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-144500055-null-null.142^v102^pc_search_result_base9&utm_term=linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F&spm=1018.2226.3001.4187)
+
+### 用户管理
+#### 创建和删除用户 - useradd / userdel。
+[root home]# useradd hellokitty     
+[root home]# userdel hellokitty     
+> -d - 创建用户时为用户指定用户主目录    
+> -g - 创建用户时指定用户所属的用户组
+#### 创建和删除用户组 - groupadd / groupdel。
+说明：用户组主要是为了方便对一个组里面所有用户的管理。     
+#### 修改密码 - passwd。
+```sql
+[root ~]# passwd hellokitty
+New password: 
+Retype new password: 
+passwd: all authentication tokens updated successfully.
+```
+说明：输入密码和确认密码没有回显且必须一气呵成的输入完成（不能使用退格键），密码和确认密码需要一致。如果使用passwd命令时没有指定命令作用的对象，则表示要修改当前用户的密码。如果想批量修改用户密码，可以使用chpasswd命令。
+> -l / -u - 锁定/解锁用户。
+> -d - 清除用户密码。
+> -e - 设置密码立即过期，用户登录时会强制要求修改密码。
+> -i - 设置密码过期多少天以后禁用该用户。
+
+#### 查看和修改密码有效期 - chage。
+设置hellokitty用户100天后必须修改密码，过期前15天通知该用户，过期后7天禁用该用户。    
+##### 语法 chage -M 100 -W 15 -I 7 hellokitty
+
+#### 切换用户 - su。
+```sql
+[root ~]# su hellokitty
+[hellokitty root]$
+```
+#### 以管理员身份执行命令 - sudo。
+```sql
+[hellokitty ~]$ ls /root
+ls: cannot open directory /root: Permission denied
+[hellokitty ~]$ sudo ls /root
+[sudo] password for hellokitty:
+```
+> 说明：如果希望用户能够以管理员身份执行命令，用户必须要出现在sudoers名单中，sudoers文件在 /etc目录下，如果希望直接编辑该文件也可以使用下面的命令
+
+### [more details](https://github.com/lpz726/Python-100-Days/blob/master/Day31-35/34-35.%E7%8E%A9%E8%BD%ACLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F.md#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86)
+
+
+
