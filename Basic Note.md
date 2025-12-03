@@ -12,7 +12,7 @@ python learning
 [锁](#锁的详细解释)
 [面对对象编程](#面对对象编程)
 [抽象类](#抽象类)
-[Linux系统](#Linux)
+[Linux系统](#linuxsystem)
 [Linux操作指令](#操作指令)
 [Linux用户管理](#用户管理)
 
