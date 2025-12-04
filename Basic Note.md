@@ -1548,7 +1548,7 @@ ls: cannot open directory /root: Permission denied
 
 ## 关系型数据库和MySQL概述
 ### 关系型数据库概述
-
+#### [MySQL 基本命令](https://github.com/lpz726/Python-100-Days/blob/master/Day36-45/36.%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8CMySQL%E6%A6%82%E8%BF%B0.md#mysql-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4)
 
 
 
