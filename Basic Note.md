@@ -15,6 +15,8 @@ python learning
 [Linux操作指令](#操作指令)
 [Linux用户管理](#用户管理)
 [Linux文件系统](#文件系统)
+[前端](#Web)
+[关系数据库](#关系型数据库概述)
 
 ## 特性对比表
 | 特性  	|列表(List)|	元组(Tuple)|	字典(Dict)|集合(Set)|	类(Class)|
@@ -1551,8 +1553,12 @@ ls: cannot open directory /root: Permission denied
 #### [MySQL 基本命令](https://github.com/lpz726/Python-100-Days/blob/master/Day36-45/36.%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8CMySQL%E6%A6%82%E8%BF%B0.md#mysql-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4)
 
 
-
-
-
-
+### [DDL](https://github.com/lpz726/Python-100-Days/blob/master/Day36-45/37.SQL%E8%AF%A6%E8%A7%A3%E4%B9%8BDDL.md)
+(数据定义语言)
+### [DML](https://github.com/lpz726/Python-100-Days/blob/master/Day36-45/38.SQL%E8%AF%A6%E8%A7%A3%E4%B9%8BDML.md)
+(数据操作语言)
+### [DQL](https://github.com/lpz726/Python-100-Days/blob/master/Day36-45/39.SQL%E8%AF%A6%E8%A7%A3%E4%B9%8BDQL.md)
+(数据查询语言)
+### [DCL](https://github.com/lpz726/Python-100-Days/blob/master/Day36-45/40.SQL%E8%AF%A6%E8%A7%A3%E4%B9%8BDCL.md)
+(数据控制语言)
 
