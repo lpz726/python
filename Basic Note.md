@@ -1512,8 +1512,42 @@ ls: cannot open directory /root: Permission denied
 
 ## Web前端
 
+### 结构
+>- html
+>>- head
+>>>- title
+>>>- meta
+>>- body
+
+### 文本
+> 标题（heading）和段落（paragraph）
+>- h1 ~ h6
+>- p
+> 上标（superscript）和下标（subscript）
+>- sup
+>- sub
+> 空白（白色空间折叠）
+> 折行（break）和水平标尺（horizontal ruler）
+>- br
+>- hr
+> 语义化标签
+>- 加粗和强调 - strong
+>- 引用 - blockquote
+>- 缩写词和首字母缩写词 - abbr / acronym
+>- 引文 - cite
+>- 所有者联系信息 - address
+>- 内容的修改 - ins / del
+
+> 列表（list）
+>- 有序列表（ordered list）- ol / li
+>- 无序列表（unordered list）- ul / li
+>- 定义列表（definition list）- dl / dt / dd
 
 
+## [前端详细介绍](https://github.com/lpz726/Python-100-Days/blob/master/Day31-35/32-33.Web%E5%89%8D%E7%AB%AF%E5%85%A5%E9%97%A8.md)    
+
+## 关系型数据库和MySQL概述
+### 关系型数据库概述
 
 
 
