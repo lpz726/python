@@ -1562,3 +1562,7 @@ ls: cannot open directory /root: Permission denied
 ### [DCL](https://github.com/lpz726/Python-100-Days/blob/master/Day36-45/40.SQL%E8%AF%A6%E8%A7%A3%E4%B9%8BDCL.md)
 (数据控制语言)
 
+### [json](https://github.com/lpz726/Python-100-Days/blob/master/Day36-45/41.MySQL%E6%96%B0%E7%89%B9%E6%80%A7.md#json%E7%B1%BB%E5%9E%8B)
+
+### [窗口函数](https://github.com/lpz726/Python-100-Days/blob/master/Day36-45/41.MySQL%E6%96%B0%E7%89%B9%E6%80%A7.md#%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0)
+
