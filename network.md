@@ -218,9 +218,11 @@ CSMA/CD 在有线局域网中容易实现
 |CSMA/CD|	CSMA with Collision Detection|	带冲突检测的CSMA|	边听边说：发送同时检测冲突，冲突则立即停止并发送阻塞信号	|传统有线以太网（10BASE5/2）|	快速冲突解决；提高利用率|	不适用于无线（隐藏终端、信号衰减）
 |CSMA/CA	|CSMA with Collision Avoidance	|带冲突避免的CSMA	|先听后说+随机退避：空闲后等待一个随机时间再发送；|有时用RTS/CTS预约	Wi-Fi（IEEE 802.11）	|适应无线环境；避免隐蔽终端问题	|开销较大；效率低于CSMA/CD|
 
-
-
-
+### MAC
+MAC地址是一个固化在网卡硬件中的、全球唯一的48位标识符。地址划分是网络设备一开始就划分好的
+####  [docsis怎么work，binary exponential backoff怎么work,什么是switch selflearning怎么work switch和router区别 ](https://chat.deepseek.com/share/ia1wawl72v3mdo5fzn)
+### 交换机自学习
+通过网卡确定host端口位置（不是一直保存），如果收到帧不知道向哪个端口发，那么就转向所有端口转发（同一个端口进的不可以从同一端口出）
 
 
 
