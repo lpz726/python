@@ -176,6 +176,7 @@ SplitInformation(S, A) = -**Σ**{v∈Values(A)} (|Sv|/|S|) log₂(|Sv|/|S|)
 后面自行了解，公式太复杂了  
 ### 感知器
 **公式**：**ΔWi=c（d-signal(**∑**WiXi)）Xi**  
+Wi 权值   
 c是常数，表示学习率   
 d是期望的输出，取值为1或-1    
 sign是感知机的输出，取值为1或-1    
