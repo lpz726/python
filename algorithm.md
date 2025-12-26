@@ -24,7 +24,7 @@ h*(n):从**n**到目标的最优代价
 > c(n,n') 表示n到相邻节点的距离
 
  ## 推理
- 
+### 五大推理规则
 |规则|	形式化表示|	通俗解释|
 |---|----|-----|
 |取式假言推理|	P, P→Q ⊢ Q|	如果P且P蕴含Q为真，则Q为真|
@@ -32,4 +32,82 @@ h*(n):从**n**到目标的最优代价
 |与消除	|P∧Q ⊢ P 或 P∧Q ⊢ Q|	如果P且Q为真，则P为真，Q也为真|
 |与引入	|P, Q ⊢ P∧Q	|如果P为真且Q为真，则P且Q为真|
 |全称例化	|∀X p(X) ⊢ p(a)|	如果对所有X都成立，则对某个具体a也成立|
- 
+
+∧逻辑与  
+∨逻辑或  
+¬ 取反    
+P→Q P=T,Q=F为F,其余时候为T   
+### 合一算法
+合一：判断什么样的替换可以使两个谓词表达式匹配的算法   
+合一表明了两个或多个表达式在什么条件下可以称为等价的。   
+替换：   
+一个替换(Substitution)就是形如**{t1/x1,t2/x2,….tn/xn}**的有限集合，x1,x2.,,,xn是互不相同的个体变元，ti不同于xi, xi也不循环出现在tj中  
+如：{a/x,g(y)/y,f(g(b))/z}    正确！   
+        {g(y)/x,f(x)/y}       错误！  
+
+斯柯伦标准化：去掉所有的存在量词    
+(X)(彐Y)(mother(X,Y))变为(X) (mother(X,m(X))     
+组合(composition) ：在合一过程中，如果先后产生S和S’的替换，那么将S中的某个元素应用S’，所产生的新的替换，称为组合。   
+    如：{X/Y, W/Z}, {V/X}, {a/V, f(b)/W}      
+    组合过程： {X/Y, W/Z}, {V/X}组合产生{V/Y, W/Z}   
+              {V/Y, W/Z},{a/V, f(b)/W} 组合产生{a/Y, f(b)/Z}    
+
+#### 算法
+UNIFY   
+```python
+case    
+E1, E2 或者是常元或者是空表:    %递归终止   
+        If  E1 ＝ E2  then return {  };    
+        else  return FAIL;    
+E1是一个变元:     
+        if  E1在E2中出现 then  return FAIL;    
+        else  return {E2/E1};    
+E2是一个变元:     
+        if  E2在E1中出现 then  return FAIL;    
+        else  return {E1/E2};    
+其他情况:  % E1和E2都是表     
+```
+核心算法
+```python
+begin
+        HE1 = E1的第一个元素;
+        HE2 = E2的第一个元素;
+        SUBS1 = unify (HE1, HE2);
+        if (SUBS1 ＝ FAIL) then return FAIL;
+        TE1 = apply (SUBS1, E1的后半部);
+        TE2 = apply (SUBS1, E2的后半部);
+        SUBS2 = unify (TE1, TE2 );
+        if  (SUBS2 ＝ FAIL) then  return FAIL;
+        else return SUBS1与SUBS2 的并集;
+ end
+```
+example 
+```python
+E1:parents(X, father(X), mother(bill)) 
+E2:parents(bill, father(bill), Y)  
+SUBS1 = unify (HE1, HE2);   
+{bill/X}  
+E1:parents(bill, father(bill), mother(bill))  
+E2:parents(bill, father(bill), Y)   
+ SUBS2 = unify (TE1, TE2 );     
+{mother(bill)/Y} 
+E1:parents(bill, father(bill), mother(bill))  
+E2:parents(bill, father(bill), mother(bill))   
+finally  
+{bill/X, mother(bill)/Y}   组合
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
