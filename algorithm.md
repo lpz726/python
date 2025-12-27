@@ -1,4 +1,4 @@
-## 启发式算法
+<img width="888" height="245" alt="image" src="https://github.com/user-attachments/assets/ad67481a-5920-47ab-a1bd-178d4df7b7c5" /><img width="343" height="81" alt="image" src="https://github.com/user-attachments/assets/d7d44b9e-c472-47f7-b42a-cb960f1a9037" /><img width="312" height="81" alt="image" src="https://github.com/user-attachments/assets/cb64d4a5-8b1a-400b-9c69-e70e8c11e4ec" /><img width="824" height="125" alt="image" src="https://github.com/user-attachments/assets/03bce0c6-8ead-4f3c-92a0-f2257be0ec67" />## 启发式算法
 贪心算法的升级版
 在启发式搜索里面，会考虑两个集合，一个叫**Open set** 一个叫 **Closed set**
 
@@ -238,6 +238,49 @@ w₁ = w₀ + Δw = [0,0,0] + [1,1,1] = [1,1,1]
 第二个染色体：00011，11000；适应度函数值=-[16+441]=-457     
 第三个染色体：00011，01000；适应度函数值=-[16+25]=-41     
 第四个染色体：00111，11000；适应度函数值=-[64+441]-505。    
+
+## 强化学习  
+### MDP模型
+**S**:状态空间（state space）。可以是有限集（离散）或连续空间。   
+s∈S必须满足马尔可夫性：给定当前状态与当前动作，下一状态的概率分布与更早历史条件独立，即   
+P(St+1​∣St​,At​,St−1​,At−1​,…)=P(St+1​∣St​,At​).
+
+**A**:动作空间（action space），也可能依状态而异 𝐴(𝑠)。   
+对每个状态 s，动作集合 𝐴(𝑠)定义 agent 可采取的选择 𝑎。动作可以是：   
+>- 确定性动作:例如{up,down,left,right}
+>- 连续动作：例如例如油门踏板输出 𝑎∈𝑅   
+
+**P**：转移概率（transition probability kernel）。对于离散情形，     
+𝑃(𝑠′∣𝑠,𝑎)=Pr⁡(𝑆𝑡+1=𝑠′∣𝑆𝑡=𝑠,𝐴𝑡=𝑎)这一项反映环境的动力学（model）。    
+**𝑅**:即时奖励函数（reward）。常有两种表述：     
+>- 确定性： 𝑟(𝑠,𝑎,𝑠′)；   
+>- 随机性： 𝑅𝑡+1的期望 𝐸[𝑅𝑡+1∣𝑠,𝑎]
+ 
+**γ∈[0,1]**：折扣因子（discount factor），用于权衡远期奖励。   
+若 γ=0：完全短视，只优化即时奖励。𝛾->1重视长期回报,对于无限期任务，需要 𝛾<1保证折扣和收敛，或者限制为 episodic；𝛾=1常用于有限轨迹（episodic）问题。   
+
+### 动态规划
+给定一个完全已知的MDP模型   
+>- 策略评估(Policy Evaluation)给定一个策略π, 评估其返回值    
+>- 最优控制(Optimal Control)寻找一个最优策略π * (从任一状态出发，其返回值都为最大)
+>- Vπ(s)： 从s状态出发，采用π策略，所获得的期望返回值   
+>- Qπ(s,a)：从s状态出发， 采用a动作，继而采用π策略，所获得的期望返回值   
+>- 最优值函数V*(s) and Q*(s,a) ：采用最优策略π *所获得的期望返回值
+
+定理：策略π 为最优策略当且仅当，在每一个状态s   
+V*(s) = **max**πV^π(s) Vπ(s) = **max**aQ^π(s,a)    
+Bellman方程：   
+𝑉^𝜋 (𝑠)=𝐸_(𝑠′~𝜋(𝑠) ) [𝑅(𝑠,𝜋(𝑠))+𝛾𝑉^𝜋 (𝑠')]
+等价于：𝑉^𝜋(𝑠)=𝐸[𝑅(𝑠,𝜋(𝑠))]+𝛾∑_(𝑠′)𝛿(𝑠,𝜋(𝑠),𝑠′）𝑉^𝜋 (𝑠′)
+
+
+
+
+
+
+ 
+
+
 
 
 
