@@ -1,4 +1,4 @@
-<img width="888" height="245" alt="image" src="https://github.com/user-attachments/assets/ad67481a-5920-47ab-a1bd-178d4df7b7c5" /><img width="343" height="81" alt="image" src="https://github.com/user-attachments/assets/d7d44b9e-c472-47f7-b42a-cb960f1a9037" /><img width="312" height="81" alt="image" src="https://github.com/user-attachments/assets/cb64d4a5-8b1a-400b-9c69-e70e8c11e4ec" /><img width="824" height="125" alt="image" src="https://github.com/user-attachments/assets/03bce0c6-8ead-4f3c-92a0-f2257be0ec67" />## 启发式算法
+## 启发式算法
 贪心算法的升级版
 在启发式搜索里面，会考虑两个集合，一个叫**Open set** 一个叫 **Closed set**
 
