@@ -212,10 +212,19 @@ b)迭代算法：每个节点第k步能够知道本节点到k个其他节点的�
 DV算法中[原理以及操作](https://chat.deepseek.com/share/sqrt3yhafhv5gujvks)   
 
 ### OSPF
-在as里面泛洪，不会往外溢出，控制泛洪范围（原理是LS算法在区域内的分发，路由计算使用Dijkstra算法）
-### BGP
+在as里面泛洪，不会往外溢出，控制泛洪范围（原理是LS算法在区域内的分发，路由计算使用Dijkstra算法）      
+经典的链路状态LS算法
+•每个路由器泛洪OSPF链路状态通告（直接通过IP协议，而不是采用TCP或者UDP）给所有AS其他路由器            
+•多个链路代价指标可用：带宽，延迟                     
+•每个路由器获悉全局拓扑和边代价，采用Dijkstra算法计算转发表            
+
+### BGP      
+前提条件：允许AS通告其所拥有网络的可达信息，以及通过它可以到达的其他AS目标         
 eBGP：从相邻ases中获得子网可达信息    
 iBGP：将获得的子网可达信息传遍到as内部的所有路由器中
+
+<img width="1039" height="566" alt="image" src="https://github.com/user-attachments/assets/04c3918d-a218-4609-a4f9-785578f6b39b" />
+
 
 ### ICMP
 ping 命令： 使用的是 ICMP回显请求 和 ICMP回显应答 消息。   
