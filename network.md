@@ -31,10 +31,15 @@ ip协议（在数据平面进行操作）对路由表进行匹配，进行转发
    > 一个数据报在队列头部等待时，造成后面的堵塞
 3. 多个输入端口的数据包在同一个时间片内到达同一个输出端口
 
-### [ip format]<img width="466" height="263" alt="image" src="https://github.com/user-attachments/assets/70d0e91c-efec-4514-b079-80d2ac6fae4e" />
+### [ip format]
+<img width="466" height="263" alt="image" src="https://github.com/user-attachments/assets/70d0e91c-efec-4514-b079-80d2ac6fae4e" />
 
+### private ip
+在一个本地网络（比如你家或办公室的Wi-Fi网络）中，所有设备（手机、电脑、智能电视等）都会被分配一个属于私有IP地址范围的地址。这些地址是“内部专用”的，只在你的本地网络内有效，不能直接在互联网上被路由和访问。
+如果需要访问需要# [nat]转换机
 
 ### 子网   
+#### 定义：无需路由器介入，子网内各主机可以在物理上相互直接到达，具有相同的地址前缀         
 优势：无需经过中间路由器即可物理到达的目标端口    
 IP地址结构：网络位 + 主机位    
 子网掩码：用于区分网络位和主机位的32位数字    
