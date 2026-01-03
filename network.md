@@ -192,7 +192,18 @@ b)迭代算法：每个节点第k步能够知道本节点到k个其他节点的�
 每个n的迭代：都需要检测所有不在N’中的w节点         
 n(n+1)/2比较: O(n2) 复杂度         
 可能存在更加高效的实现：O(nlogn）         
-[example](https://chat.deepseek.com/share/d1lyzpqwl5k0ydvyla)      
+[example](https://chat.deepseek.com/share/d1lyzpqwl5k0ydvyla)
+消息复杂度：LS: n个路由器, O(n2) 消息发送            
+
+#### DV
+
+<img width="1019" height="565" alt="image" src="https://github.com/user-attachments/assets/43b9a916-5d4d-4d97-9d68-785ecf2325f8" />
+
+
+### 算法对比      
+
+<img width="1137" height="637" alt="image" src="https://github.com/user-attachments/assets/f51eb680-334c-47a7-b18b-7da61e96fd61" />
+
 
 #### 震荡
 路由震荡是指网络中的路由信息无法收敛到一个稳定状态，而是不同路由器之间关于最优路径的选择周期性、反复地变化，导致流量在几条路径之间来回切换，网络处于持续的不稳定状态   
