@@ -140,6 +140,11 @@ DHCP工作概况:
 
 <img width="1124" height="707" alt="image" src="https://github.com/user-attachments/assets/d1d578a7-54f8-4f38-8c42-a25858da2d61" />
 
+#### 层次获取IP的结构
+
+<img width="522" height="325" alt="image" src="https://github.com/user-attachments/assets/c4dcc580-34b4-41a2-85af-d3aaf546fae3" />
+<img width="607" height="330" alt="image" src="https://github.com/user-attachments/assets/407e02ed-ba76-46de-8617-f401c1c9a6ad" />
+
 
 
 #### NAT
