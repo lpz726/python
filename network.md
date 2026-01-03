@@ -225,6 +225,13 @@ iBGP：将获得的子网可达信息传遍到as内部的所有路由器中
 
 <img width="1039" height="566" alt="image" src="https://github.com/user-attachments/assets/04c3918d-a218-4609-a4f9-785578f6b39b" />
 
+路径通报
+AS-PATH: 通告所经过的AS列表形成的路径            
+NEXT-HOP: 指示到下一跳AS的特定内部AS路由器      
+
+<img width="1029" height="543" alt="image" src="https://github.com/user-attachments/assets/b37408d7-aade-40e0-8ecc-6d80ffe059ca" />
+
+BGP 报文在对等路由器之间交换，采用TCP连接         
 
 ### ICMP
 ping 命令： 使用的是 ICMP回显请求 和 ICMP回显应答 消息。   
