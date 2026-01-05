@@ -98,6 +98,9 @@ finally
 ```
 
 ### 归结
+
+<img width="731" height="390" alt="image" src="https://github.com/user-attachments/assets/43c794ce-1962-40d8-990f-29d333e7df79" />
+
 算法步骤： 
 1. 转换子句
 > 消去蕴含： a→b ≡﹁a∨b   
