@@ -165,6 +165,7 @@ d-可分性是系统性判断贝叶斯网络中任意节点集合间条件独立
 **熵（Entropy）：衡量系统的不确定性** 
 对于二元分类问题：  
 Entropy(S) = -p⁺log₂(p⁺) - p⁻log₂(p⁻)  
+
 对于多个的问题：  
 Entropy(S) =c**∑**i=1-Pi*log2(Pi)    
 这里的c表示该类目有c个取值的可能性     
@@ -176,6 +177,9 @@ Gain(S, A)=Entropy(S) -**∑**{v∈Values(A)}(|Sv|/|S|) Entropy(Sv)
 > 其中Values(A)是属性A所有可能值的集合  
 > Sv是S中属性A的值为v的子集(也就是，Sv ={s∈S|A(s)=v})    
 > 第一项就是原来集合S的熵，第二项是用A分类S后熵的期望值
+
+
+
 ### C4.5算法
 SplitInformation(S, A) = -**Σ**{v∈Values(A)} (|Sv|/|S|) log₂(|Sv|/|S|)  
 后面自行了解，公式太复杂了  
