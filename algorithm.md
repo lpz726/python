@@ -100,6 +100,8 @@ finally
 ### 归结
 
 <img width="731" height="390" alt="image" src="https://github.com/user-attachments/assets/43c794ce-1962-40d8-990f-29d333e7df79" />
+<img width="707" height="523" alt="image" src="https://github.com/user-attachments/assets/fa7c9b71-f258-4bb4-a25c-01e416c4107a" />
+
 
 算法步骤： 
 1. 转换子句
