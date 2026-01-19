@@ -9,5 +9,6 @@
 
 ## pycharm和jupyter使用及对比      
 
-<img width="2492" height="1126" alt="image" src="https://github.com/user-attachments/assets/65553098-6276-4225-b479-ba421474d39c" />
+<img width="2559" height="1193" alt="image" src="https://github.com/user-attachments/assets/198479b8-19bb-40fb-877a-213f6c799190" />
+
 
