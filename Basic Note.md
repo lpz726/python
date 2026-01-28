@@ -45,6 +45,9 @@ python learning
 
 <img width="1180" height="586" alt="image" src="https://github.com/user-attachments/assets/8fbbec32-934d-41b8-b64d-56a274aecd90" />
 
+<img width="1190" height="915" alt="image" src="https://github.com/user-attachments/assets/02bfb9f6-8a0a-4bc2-8559-33249800ae8a" />
+
+
 
 #### 列表方法
 |方法|	描述|
