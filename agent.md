@@ -134,9 +134,92 @@ parent_id = hashlib.md5(relative_path.encode("utf-8")).hexdigest()
 [详情](https://chatgpt.com/s/t_6979697e530c8191b6eab5ffcce5127d)
 
 
+```python
+doc = Document(
+    page_content=content,
+    metadata={
+        "source": str(md_file),
+        "parent_id": parent_id,
+        "doc_type": "parent"  # 标记为父文档
+    }
+)
+documents.append(doc)
+```
+把一个 Markdown 文件，封装成一个 LangChain 的 Document 对象，作为“父文档”，并加入待处理文档列表。
+
+Document 不是普通类
+```python
+from langchain_core.documents import Document
+```
+Document 是 LangChain 中的统一文档数据结构，它的设计目标是：            
+把 文本内容（用于 LLM / embedding）            
+和 结构化元数据（用于检索 / 过滤 / 关联）                
+
+Document 的两个核心字段
+```python
+Document(
+    page_content: str,
+    metadata: dict
+)
+```
+|字段|	作用|
+|----|-----|
+|page_content|	真正要被模型“读”的文本|
+|metadata|	模型不直接读，但系统逻辑要用的信息
+
+metadata={...}（核心设计）        
+metadata 是什么？                
+                                                            
+👉 不参与向量计算，但参与检索 / 管理 / 关联      
+```python
+"source": str(md_file)
+```
+记录原始文件路径用于：            
+日志    
+调试    
+回溯来源            
+错误定位            
+为什么 str(md_file)？        
+md_file 是 Path 对象,metadata 通常要求 JSON 可序列化        
+Path 不能直接 JSON 序列化           
+
+<img width="1231" height="910" alt="image" src="https://github.com/user-attachments/assets/3ad35b41-2065-4e3e-8a08-426303ed3109" />            
+
+<img width="1345" height="784" alt="image" src="https://github.com/user-attachments/assets/07bbd086-831c-420a-b2b3-ed9195657cce" />            
+
+<img width="1270" height="521" alt="image" src="https://github.com/user-attachments/assets/70de0824-e773-4eb5-9f22-291ccef970a8" />                        
+
+它放进整个 load_documents() 的流程里看              
+```txt
+md 文件
+  ↓
+读取文本 content
+  ↓
+计算 relative_path
+  ↓
+计算 parent_id
+  ↓
+封装成 Document(page_content, metadata)
+  ↓
+加入 documents 列表
+
+```
 
 
-
+一个完整的 Document 实例长什么样？        
+```python
+Document(
+    page_content="# 宫保鸡丁\n\n## 原料\n...",
+    metadata={
+        "source": "data/recipes/meat_dish/kongpao.md",
+        "parent_id": "9f0b2c2a2f7e4e3a8f7f0a2e0d9c6b12",
+        "doc_type": "parent",
+        "category": "荤菜",
+        "dish_name": "kongpao",
+        "difficulty": "中等"
+    }
+)
+```
 
 
 
