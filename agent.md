@@ -221,6 +221,32 @@ Document(
 )
 ```
 
+```python
+except Exception as e:
+    logger.warning(f"读取文件 {md_file} 失败: {e}")
+```
+当 try 块中读取或处理某个 Markdown 文件出错时，捕获异常、记录警告日志，但不中断整个程序流程。
+
+<img width="789" height="648" alt="image" src="https://github.com/user-attachments/assets/55a602be-3bea-482c-ada7-cecbe061dfeb" />            
+
+e 里面包含：        
+异常类型    
+错误信息        
+有时还有系统错误码        
+
+<img width="1374" height="1121" alt="image" src="https://github.com/user-attachments/assets/90ca127c-bf7c-422f-9ff0-e8b8062f6740" />            
+
+```python
+for doc in documents:
+    self._enhance_metadata(doc)
+
+```
+遍历所有已加载的 Document，对每一个文档调用一个内部方法，补充 / 规范 / 推导它的 metadata。            
+换句话说：                
+“原始文档 → 结构化、可检索、可过滤的文档”                
+
+<img width="1269" height="875" alt="image" src="https://github.com/user-attachments/assets/581cc3c2-11ef-4a43-9524-5695163fd818" />        
+<img width="734" height="462" alt="image" src="https://github.com/user-attachments/assets/e363fd6d-dda3-4eca-a409-2cffda427675" />            
 
 
 
