@@ -41,6 +41,11 @@ python learning
 >num：代表元素在结构中的位置  
 >del：代表删除的元素
 
+取值的用法
+
+<img width="1180" height="586" alt="image" src="https://github.com/user-attachments/assets/8fbbec32-934d-41b8-b64d-56a274aecd90" />
+
+
 #### 列表方法
 |方法|	描述|
 |------|-----|
