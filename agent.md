@@ -77,3 +77,72 @@ f.read()：读取文件的全部内容
 'rb' # 二进制读取    
 'wb' # 二进制写入      
 ```
+```python
+
+data_root = Path(self.data_path).resolve()
+
+```
+把你传入的 **data_path**：        
+转成 Path 对象            
+再转成规范的绝对路径            
+**resolve()** 的作用            
+转为绝对路径        
+消除 . / ..            
+解析符号链接（如果存在）            
+
+```python
+
+Path(md_file).resolve().relative_to(data_root).as_posix()
+
+```
+从 md_file 的绝对路径中，去掉 data_root 这一段前缀                
+as_posix() 将路径全部转换成POSIX风格的字符串            
+
+```python
+try:
+    A
+    B
+    C
+except Exception:
+    D
+E
+```
+先执行 A → B → C            
+如果中途任何一行抛异常：            
+立即跳到 except        
+执行 D                    
+try 成功 or except 执行完        
+继续执行 E            
+
+```python
+
+parent_id = hashlib.md5(relative_path.encode("utf-8")).hexdigest()
+
+```
+
+对“相对路径字符串”进行 UTF-8 编码，然后计算其 MD5 哈希值，并用 32 位十六进制字符串作为父文档的唯一 ID。
+
+为什么使用MD5
+| 需求           | MD5 是否满足 |
+| ------------ | -------- |
+| 同一文件 ID 稳定   | ✅        |
+| 跨机器、跨系统      | ✅        |
+| 输入短 → 输出固定长度 | ✅        |
+| 计算速度快        | ✅        |
+| 易存储（字符串）     | ✅        |
+
+[详情](https://chatgpt.com/s/t_6979697e530c8191b6eab5ffcce5127d)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
