@@ -248,6 +248,24 @@ for doc in documents:
 <img width="1269" height="875" alt="image" src="https://github.com/user-attachments/assets/581cc3c2-11ef-4a43-9524-5695163fd818" />        
 <img width="734" height="462" alt="image" src="https://github.com/user-attachments/assets/e363fd6d-dda3-4eca-a409-2cffda427675" />            
 
+```python
+def _enhance_metadata(self, doc: Document):
+```
+**_enhance_metadata**        
+_ 前缀：内部方法        
+不对外暴露                
+专门给 load_documents() 调用        
+
+**doc: Document**
+类型注解，表明：        
+这是 LangChain 的 Document        
+必须包含：        
+doc.page_content        
+doc.metadata            
+
+
+
+
 
 
 
